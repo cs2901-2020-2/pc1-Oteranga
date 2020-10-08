@@ -8,10 +8,13 @@ public class Observer {
     
     public Observer() {}
 
-    public void update(boolean status){
+    public String update(boolean status){
         if(status){
             logger.info("Registration complete");
+            return "Registration complete";
         }
+        
+        return " ";
     }
 
 }

@@ -3,6 +3,7 @@ package cs.lab;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import cs.lab.RegistrApp;
 import sun.security.x509.Extension;
 
 import java.io.*;
@@ -36,7 +37,8 @@ public class RegistrAppTest {
         List<String> input = readInput(i);
         String output = readOutput(i);
         RegistrApp app = new RegistrApp();
-        String response = sequencer.calculate(input);
+        app.parsing(input);
+        String response = app.notifyObserver();
         Assert.assertEquals(response, output);
     }
 

@@ -1,5 +1,7 @@
 package cs.lab;
 
+import java.util.List;
+
 import sun.security.x509.Extension;
 
 public class RegistrApp {
@@ -16,6 +18,11 @@ public class RegistrApp {
     private String type;
     private String link;
 
+    private boolean state;
+
+    public RegistrApp(){}
+
+    /*
     public RegistrApp(String semesterAt, String codeAt, String languageAt, String courseAt, int sectionAt, String weekAt, 
     String teacherAt, String dataAt, String hourAt, String typeAt, String linkAt) {
         semester = semesterAt;
@@ -30,12 +37,23 @@ public class RegistrApp {
         type = typeAt;
         link = linkAt;
     }
+    */
 
-    public void parsing(){
-        
+    public void parsing(List<String> lista){
+        semester = lista.get(0);
+        code = lista.get(1);
+        language = lista.get(2);
+        course = lista.get(3);
+        section = Integer.parseInt(lista.get(4));
+        week = lista.get(5);
+        teacher = lista.get(6);
+        date = lista.get(7);
+        hour = lista.get(8);
+        type = lista.get(9);
+        link = lista.get(10);
     }
     
-    public boolean verify() throws Extension{
+    public void verify() throws Extension{
         String semesterExtensionI = semester.charAt(4) + semester.charAt(5);
         String semesterExtensionII = semester.charAt(4) + semester.charAt(5) + semester.charAt(6);
 
@@ -90,15 +108,17 @@ public class RegistrApp {
             throw new Exception("Wrong link");
         }
 
-        return true;
-
+        state = true;
     }
 
-    public void notifyObserver() {
-        if(verify()){
+    public String notifyObserver() {
+        String answer = "";
+        if(state){
             Observer observer = new Observer();
-            observer.update(true);
-        } 
+            answer = observer.update(true);
+        }
+
+        return answer;
     }
 
     public String getSemester() {
@@ -143,10 +163,6 @@ public class RegistrApp {
 
     public String getLink() {
         return link;
-    }
-
-    public static void main(String[] args) {
-        
     }
 
 }
